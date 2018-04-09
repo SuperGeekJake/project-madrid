@@ -1,0 +1,31 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../pm-image-cropper/pm-image-cropper.html">
+
+<dom-module id="pm-image-cropper-page">
+<template>
+  <style>
+    :host {
+      display: block;
+      background-color: aqua;
+    }
+  </style>
+  <pm-image-cropper></pm-image-cropper>
+</template>
+
+<script>
+  class PMImageCropperPage extends Polymer.Element {
+    static get is() {
+      return 'pm-image-cropper-page'
+    }
+    static get properties() {
+      return {
+        croppedImage: {
+          notify: true,
+          type: Object
+        }
+      }
+    }
+  }
+  window.customElements.define(PMImageCropperPage.is, PMImageCropperPage)
+</script>
+</dom-module>
