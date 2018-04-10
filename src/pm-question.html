@@ -1,16 +1,48 @@
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/iron-image/iron-image.html">
 
 <dom-module id="pm-question">
   <template>
     <style>
       :host {
-        display: block
+        display: block;
+        width: 400px;
+      }
+      li {
+        cursor: pointer;
+      }
+      ul.images {
+        padding: 0;
+        list-style: none;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        width: 100%;
+      }
+      ul.images li {
+        margin-bottom: 20px;
+      }
+      ul.images li iron-image {
+        width: 150px;
+        height: 150px;
+      }
+      ul:not(.images) li {
+        margin: 10px 0;
+        font-size: 150%;
       }
     </style>
     <h2>[[question]]</h2>
-    <ul>
+    <ul class$="[[listClass(images)]]">
     <template is="dom-repeat" items="[[answers]]">
       <li on-click="handleClick">[[item]]</li>
+    </template>
+    <template is="dom-repeat" items="[[images]]">
+      <li class="image" on-click="handleClick">
+        <iron-image
+          src="[[item]]"
+          sizing="cover"></iron-image>
+      </li>
     </template>
     </ul>
   </template>
@@ -32,6 +64,9 @@
             notify: true
           }
         }
+      }
+      listClass (images) {
+        return images ? 'images' : '';
       }
       onAnswersChange () {
         this.answer = undefined

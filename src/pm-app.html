@@ -2,6 +2,7 @@
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/app-route/app-location.html">
 <link rel="import" href="../bower_components/app-route/app-route.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="./pm-question.html">
 <link rel="import" href="./pm-results.html">
 
@@ -18,6 +19,15 @@
         left: 0;
         width: 100%;
         height: 100%;
+        font-family: GTWalsheim,arial,sans-serif;
+        background-color: #e3677c;
+        --color-1: #a7cfdd;
+        --color-2: #7fc5bc;
+        --color-3: #feacba;
+        --color-4: #f8ce6a;
+        --color-5: #ca9ad8;
+        color: #fff;
+        transition: background-color 1s cubic-bezier(0, 0, 0, 1);
       }
       iron-pages {
         position: absolute;
@@ -41,60 +51,21 @@
       <pm-question
         question="[[question]]"
         answers="[[answers]]"
+        images="[[images]]"
         on-answer-changed="handleAnswer"
         page="question"></pm-question>
       <pm-results
         result="[[result]]"
         page="results"></pm-results>
     </iron-pages>
+    <iron-ajax
+      auto
+      url="./questions.json"
+      handle-as="json"
+      on-response="gotQuestions"></iron-ajax>
   </template>
 
   <script>
-    const QUESTIONS = [
-      ['First question ', [
-        'Answer A',
-        'Answer B',
-        'Answer C',
-        'Answer D',
-        'Answer E'
-      ]],
-      ['Second question ', [
-        'Answer A1',
-        'Answer B2',
-        'Answer C3',
-        'Answer D4',
-        'Answer E5'
-      ]],
-      ['Third question ', [
-        'Answer 1',
-        'Answer 2',
-        'Answer 3',
-        'Answer 4',
-        'Answer 5'
-      ]],
-    ]
-    // this could come from json, be base64 encoded, etc
-    const WEIGHTS = [
-      [ //first question
-        [0, 0, 0, 0, 1], //first answer
-        [0, 0, 1, 0, 0],
-        [0, 1, 0, 0, 0],
-        [1, 0, 0, 0, 0],
-        [0, 0, 0, 1, 0]
-      ], [
-        [0, 0, 0, 0, 1],
-        [0, 0, 1, 0, 0],
-        [0, 1, 0, 0, 0],
-        [1, 0, 0, 0, 0],
-        [0, 0, 0, 1, 0]
-      ], [
-        [0, 0, 0, 0, 1],
-        [0, 0, 1, 0, 0],
-        [0, 1, 0, 0, 0],
-        [1, 0, 0, 0, 0],
-        [0, 0, 0, 1, 0]
-      ]
-    ]
     class PMApp extends Polymer.Element {
       static get is() { return 'pm-app' }
       static get properties() {
@@ -105,11 +76,11 @@
           answers: Array
         }
       }
-      ready () {
-        super.ready()
+      gotQuestions (e) {
         this.responses = []
-        this.page = 'question'
+        this.questions = e.detail.response
         this.nextQuestion()
+        this.page = 'question'
       }
       handleAnswer (e) {
         if (e.detail.value === undefined) return
@@ -119,22 +90,27 @@
       nextQuestion () {
         if (this.currentQuestion === undefined) this.currentQuestion = -1
         this.currentQuestion++
-        const questionInfo = QUESTIONS[this.currentQuestion]
+        let colorN = this.currentQuestion + 1
+        if (colorN > 5) colorN = 1
+        this.style.backgroundColor = `var(--color-${colorN})`
+        const questionInfo = this.questions[this.currentQuestion]
         if (!questionInfo) return this.showResults()
-        this.question = questionInfo[0]
-        this.answers = questionInfo[1]
+        this.question = questionInfo.prompt
+        this.answers = questionInfo.answers
+        this.images = questionInfo.images
       }
-      calcWeights (weights, responses) {
+      calcWeights (responses) {
+        const _this = this;
         return responses.reduce(function (result, response, qIdx) {
           return result.map(function (r, rIdx) {
-            return r + weights[qIdx][response][rIdx]
+            return r + _this.questions[qIdx].modifiers[response][rIdx]
           })
         }, [0, 0, 0, 0, 0])
       }
       showResults () {
         this.result = "YOU WIN!"
         this.page = 'results'
-        console.log(this.responses, this.calcWeights(WEIGHTS, this.responses))
+        console.log(this.responses, this.calcWeights(this.responses))
       }
     }
 

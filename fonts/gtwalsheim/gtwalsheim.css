@@ -1,0 +1,59 @@
+@font-face {
+  font-family: 'GTWalsheim';
+  src: url('GT-Walsheim-Pro-Regular.eot');
+  src: url('GT-Walsheim-Pro-Regular.eot?#iefix') format('embedded-opentype'),
+    url('GT-Walsheim-Pro-Regular.woff') format('woff'),
+    url('GT-Walsheim-Pro-Regular.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'GTWalsheim';
+  src: url('GT-Walsheim-Pro-Regular-Oblique.eot');
+  src: url('GT-Walsheim-Pro-Regular-Oblique.eot?#iefix') format('embedded-opentype'),
+    url('GT-Walsheim-Pro-Regular-Oblique.woff') format('woff'),
+    url('GT-Walsheim-Pro-Regular-Oblique.ttf') format('truetype');
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'GTWalsheim';
+  src: url('GT-Walsheim-Pro-Medium.eot');
+  src: url('GT-Walsheim-Pro-Medium.eot?#iefix') format('embedded-opentype'),
+    url('GT-Walsheim-Pro-Medium.woff') format('woff'),
+    url('GT-Walsheim-Pro-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'GTWalsheim';
+  src: url('GT-Walsheim-Pro-Medium-Oblique.eot');
+  src: url('GT-Walsheim-Pro-Medium-Oblique.eot?#iefix') format('embedded-opentype'),
+    url('GT-Walsheim-Pro-Medium-Oblique.woff') format('woff'),
+    url('GT-Walsheim-Pro-Medium-Oblique.ttf') format('truetype');
+  font-weight: 500;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'GTWalsheim';
+  src: url('GT-Walsheim-Pro-Bold.eot');
+  src: url('GT-Walsheim-Pro-Bold.eot?#iefix') format('embedded-opentype'),
+    url('GT-Walsheim-Pro-Bold.woff') format('woff'),
+    url('GT-Walsheim-Pro-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'GTWalsheim';
+  src: url('GT-Walsheim-Pro-Bold-Oblique.eot');
+  src: url('GT-Walsheim-Pro-Bold-Oblique.eot?#iefix') format('embedded-opentype'),
+    url('GT-Walsheim-Pro-Bold-Oblique.woff') format('woff'),
+    url('GT-Walsheim-Pro-Bold-Oblique.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+}

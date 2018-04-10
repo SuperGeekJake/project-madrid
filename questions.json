@@ -1,0 +1,26 @@
+[
+  {
+    "prompt": "When conflict arises, my reaction is",
+    "images": [
+      "https://media.giphy.com/media/COYGe9rZvfiaQ/giphy.gif",
+      "https://media.giphy.com/media/kwdv5q2ageAvu/giphy-downsized-large.gif",
+      "https://media.giphy.com/media/gl0mkIZOW6Nwc/giphy.gif",
+      "https://media.giphy.com/media/yr7n0u3qzO9nG/giphy.gif"
+    ],
+    "modifiers": [
+      [ 1, 0, 0, 0, 0, 0, 0 ],
+      [ 0, 1, 0, 0, 0, 0, 0 ],
+      [ 0, 0, 1, 0, 0, 0, 0 ],
+      [ 0, 0, 0, 1, 0, 0, 0 ]
+    ]
+  },
+  {
+    "prompt": "If your only food option was fresh maggots, you would",
+    "answers": [
+      "eat them all and ask for seconds",
+      "convince yourself that it's finally time to try that water day everyone's been raving about",
+      "try at least one, maybe more if there's no gag reflex"
+    ],
+    "modifiers": [ [ 1, 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0, 0, 0, 0, 0 ], [ 0, 0, 1, 0, 0, 0, 0 ] ]
+  }
+]
