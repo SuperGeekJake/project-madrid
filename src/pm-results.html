@@ -1,0 +1,26 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+
+<dom-module id="pm-results">
+  <template>
+    <style>
+      :host {
+        display: block
+      }
+    </style>
+    <h1>[[result]]</h1>
+  </template>
+  <script>
+    class PMResults extends Polymer.Element {
+      static get is() {
+        return 'pm-results';
+      }
+      static get properties() {
+        return {
+          result: String
+        }
+      }
+    }
+
+    window.customElements.define(PMResults.is, PMResults);
+  </script>
+</dom-module>

@@ -1,0 +1,143 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../bower_components/app-route/app-location.html">
+<link rel="import" href="../bower_components/app-route/app-route.html">
+<link rel="import" href="./pm-question.html">
+<link rel="import" href="./pm-results.html">
+
+<dom-module id="pm-app">
+  <template>
+    <style>
+      :host {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+      iron-pages {
+        position: absolute;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: columns;
+        align-items: center;
+        justify-content: center;
+      }
+    </style>
+    <app-location route="{{route}}"></app-location>
+    <app-route
+      route="{{route}}"
+      pattern="/:page"
+      data="{{routeData}}">
+    </app-route>
+    <iron-pages
+      selected="{{page}}"
+      attr-for-selected="page">
+      <pm-question
+        question="[[question]]"
+        answers="[[answers]]"
+        on-answer-changed="handleAnswer"
+        page="question"></pm-question>
+      <pm-results
+        result="[[result]]"
+        page="results"></pm-results>
+    </iron-pages>
+  </template>
+
+  <script>
+    const QUESTIONS = [
+      ['First question ', [
+        'Answer A',
+        'Answer B',
+        'Answer C',
+        'Answer D',
+        'Answer E'
+      ]],
+      ['Second question ', [
+        'Answer A1',
+        'Answer B2',
+        'Answer C3',
+        'Answer D4',
+        'Answer E5'
+      ]],
+      ['Third question ', [
+        'Answer 1',
+        'Answer 2',
+        'Answer 3',
+        'Answer 4',
+        'Answer 5'
+      ]],
+    ]
+    // this could come from json, be base64 encoded, etc
+    const WEIGHTS = [
+      [ //first question
+        [0, 0, 0, 0, 1], //first answer
+        [0, 0, 1, 0, 0],
+        [0, 1, 0, 0, 0],
+        [1, 0, 0, 0, 0],
+        [0, 0, 0, 1, 0]
+      ], [
+        [0, 0, 0, 0, 1],
+        [0, 0, 1, 0, 0],
+        [0, 1, 0, 0, 0],
+        [1, 0, 0, 0, 0],
+        [0, 0, 0, 1, 0]
+      ], [
+        [0, 0, 0, 0, 1],
+        [0, 0, 1, 0, 0],
+        [0, 1, 0, 0, 0],
+        [1, 0, 0, 0, 0],
+        [0, 0, 0, 1, 0]
+      ]
+    ]
+    class PMApp extends Polymer.Element {
+      static get is() { return 'pm-app' }
+      static get properties() {
+        return {
+          routeData: Object,
+          page: String,
+          question: String,
+          answers: Array
+        }
+      }
+      ready () {
+        super.ready()
+        this.responses = []
+        this.page = 'question'
+        this.nextQuestion()
+      }
+      handleAnswer (e) {
+        if (e.detail.value === undefined) return
+        this.responses[this.currentQuestion] = e.detail.value
+        this.nextQuestion()
+      }
+      nextQuestion () {
+        if (this.currentQuestion === undefined) this.currentQuestion = -1
+        this.currentQuestion++
+        const questionInfo = QUESTIONS[this.currentQuestion]
+        if (!questionInfo) return this.showResults()
+        this.question = questionInfo[0]
+        this.answers = questionInfo[1]
+      }
+      calcWeights (weights, responses) {
+        return responses.reduce(function (result, response, qIdx) {
+          return result.map(function (r, rIdx) {
+            return r + weights[qIdx][response][rIdx]
+          })
+        }, [0, 0, 0, 0, 0])
+      }
+      showResults () {
+        this.result = "YOU WIN!"
+        this.page = 'results'
+        console.log(this.responses, this.calcWeights(WEIGHTS, this.responses))
+      }
+    }
+
+    window.customElements.define(PMApp.is, PMApp);
+  </script>
+</dom-module>

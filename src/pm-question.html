@@ -1,0 +1,46 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+
+<dom-module id="pm-question">
+  <template>
+    <style>
+      :host {
+        display: block
+      }
+    </style>
+    <h2>[[question]]</h2>
+    <ul>
+    <template is="dom-repeat" items="[[answers]]">
+      <li on-click="handleClick">[[item]]</li>
+    </template>
+    </ul>
+  </template>
+
+  <script>
+    class PMQuestion extends Polymer.Element {
+      static get is() {
+        return 'pm-question'
+      }
+      static get properties() {
+        return {
+          question: String,
+          answers: {
+            type: Array,
+            observer: 'onAnswersChange'
+          },
+          answer: {
+            type: String,
+            notify: true
+          }
+        }
+      }
+      onAnswersChange () {
+        this.answer = undefined
+      }
+      handleClick (e) {
+        this.answer = e.model.index
+      }
+    }
+
+    window.customElements.define(PMQuestion.is, PMQuestion);
+  </script>
+</dom-module>
