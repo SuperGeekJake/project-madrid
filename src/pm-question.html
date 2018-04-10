@@ -26,6 +26,7 @@
       ul.images li iron-image {
         width: 150px;
         height: 150px;
+        background-color: lightgray;
       }
       ul:not(.images) li {
         margin: 10px 0;
@@ -41,6 +42,7 @@
       <li class="image" on-click="handleClick">
         <iron-image
           src="[[item]]"
+          preload
           sizing="cover"></iron-image>
       </li>
     </template>
