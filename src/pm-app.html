@@ -3,6 +3,7 @@
 <link rel="import" href="../bower_components/app-route/app-location.html">
 <link rel="import" href="../bower_components/app-route/app-route.html">
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="./pm-intro.html">
 <link rel="import" href="./pm-question.html">
 <link rel="import" href="./pm-results.html">
 
@@ -48,6 +49,9 @@
     <iron-pages
       selected="{{page}}"
       attr-for-selected="page">
+      <pm-intro
+        on-nav="beginQuiz"
+        page="intro"></pm-intro>
       <pm-question
         question="[[question]]"
         answers="[[answers]]"
@@ -71,17 +75,22 @@
       static get properties() {
         return {
           routeData: Object,
-          page: String,
+          page: {
+            type: String,
+            value: 'intro'
+          },
           question: String,
           answers: Array,
           images: Array
         }
       }
+      beginQuiz () {
+        this.nextQuestion()
+        this.page = 'question'
+      }
       gotQuestions (e) {
         this.responses = []
         this.questions = e.detail.response
-        this.nextQuestion()
-        this.page = 'question'
       }
       handleAnswer (e) {
         if (e.detail.value === undefined) return

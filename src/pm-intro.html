@@ -1,0 +1,20 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+
+<dom-module id="pm-intro">
+  <template>
+    <h1 on-click='triggerNavigation'>OHAI</h1>
+  </template>
+
+  <script>
+    class PMIntro extends Polymer.Element {
+      static get is () {
+        return 'pm-intro'
+      }
+      triggerNavigation () {
+        this.dispatchEvent(new CustomEvent('nav'))
+      }
+    }
+
+    window.customElements.define(PMIntro.is, PMIntro);
+  </script>
+</dom-module>
