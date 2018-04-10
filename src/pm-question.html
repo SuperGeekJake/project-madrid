@@ -57,7 +57,11 @@
           question: String,
           answers: {
             type: Array,
-            observer: 'onAnswersChange'
+            observer: 'clearAnswer'
+          },
+          images: {
+            type: Array,
+            observer: 'clearAnswer'
           },
           answer: {
             type: String,
@@ -68,7 +72,7 @@
       listClass (images) {
         return images ? 'images' : '';
       }
-      onAnswersChange () {
+      clearAnswer () {
         this.answer = undefined
       }
       handleClick (e) {
