@@ -11,6 +11,13 @@
   <template>
     <style>
       :host {
+        --color-1: #a7cfdd;
+        --color-2: #7fc5bc;
+        --color-3: #feacba;
+        --color-4: #f8ce6a;
+        --color-5: #ca9ad8;
+        --color-6: #e24f54;
+
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -18,12 +25,7 @@
         min-width: 100%;
         min-height: 100%;
         font-family: GTWalsheim,arial,sans-serif;
-        background-color: #e3677c;
-        --color-1: #a7cfdd;
-        --color-2: #7fc5bc;
-        --color-3: #feacba;
-        --color-4: #f8ce6a;
-        --color-5: #ca9ad8;
+        background-color: var(--color-5);
         color: #fff;
         transition: background-color 1s cubic-bezier(0, 0, 0, 1);
       }
