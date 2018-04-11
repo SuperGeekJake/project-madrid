@@ -113,11 +113,10 @@
       }
       calcWeights (responses) {
         const _this = this
-        return responses.reduce(function (result, response, qIdx) {
-          return result.map(function (r, rIdx) {
-            return r + _this.questions[qIdx].modifiers[response][rIdx]
-          })
-        }, [0, 0, 0, 0, 0])
+        return responses.reduce(function (result, response) {
+          result[response]++
+          return result
+        }, [0, 0, 0, 0])
       }
       showResults () {
         // clear question page

@@ -98,12 +98,12 @@
       _hidden$="[[hidden]]"
       class$="[[listClass(_displayedImages)]]">
     <template is="dom-repeat" items="[[_displayedAnswers]]">
-      <li on-click="handleClick"><span>[[item]]</span></li>
+      <li on-click="handleClick"><span>[[item.data]]</span></li>
     </template>
     <template is="dom-repeat" items="[[_displayedImages]]">
       <li class="image" on-click="handleClick">
         <iron-image
-          src="[[item]]"
+          src="[[item.data]]"
           preload
           fade
           sizing="cover"></iron-image>
@@ -157,12 +157,37 @@
           Polymer.Async.timeOut.after(100),
           this._show.bind(this))
       }
+      _processArray (array) {
+        if (!array || !array.length) return array
+        return this._shuffleArray(array
+          .map(function (data, idx) {
+            return {
+              data: data,
+              id: idx
+            }
+          }))
+      }
+      _shuffleArray (array) {
+        // https://github.com/coolaj86/knuth-shuffle
+        var currentIndex = array.length, temporaryValue, randomIndex
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+          // Pick a remaining element...
+          randomIndex = Math.floor(Math.random() * currentIndex)
+          currentIndex -= 1
+          // And swap it with the current element.
+          temporaryValue = array[currentIndex]
+          array[currentIndex] = array[randomIndex]
+          array[randomIndex] = temporaryValue
+        }
+        return array
+      }
       _show () {
         // if it is shown, it just transitionended to visible
         if (!this.hidden) return
         this._displayedQuestion = this.question
-        this._displayedAnswers = this.answers
-        this._displayedImages = this.images
+        this._displayedAnswers = this._processArray(this.answers)
+        this._displayedImages = this._processArray(this.images)
         // wait for the dom to be populated
         setTimeout(function () {
           this.hidden = false
@@ -188,7 +213,7 @@
         el.addEventListener('transitionend', this._debounceShow)
       }
       handleClick (e) {
-        this.answer = e.model.index
+        this.answer = e.model.item.id
       }
     }
 
