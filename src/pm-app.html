@@ -124,10 +124,10 @@
         this.answers = this.images = []
         this.switchBGColor()
         setTimeout(function () {
+          const weights = this.calcWeights(this.responses)
           this.style.color = ''
-          this.result = "YOU WIN!"
+          this.result = `SCORES: [TP: ${weights[0]}; Cmm: ${weights[1]}; GG: ${weights[2]}; Inn: ${weights[3]}]`
           this.page = 'results'
-          console.log(this.responses, this.calcWeights(this.responses))
         }.bind(this), 800)
       }
       ready () {
