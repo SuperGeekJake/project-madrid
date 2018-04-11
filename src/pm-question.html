@@ -25,6 +25,15 @@
       }
       #answers li {
         cursor: pointer;
+        position: relative;
+      }
+      #answers li .tag {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: black;
+        color: white;
+        padding: 2px;
       }
       #answers.images li {
         margin-bottom: 20px;
@@ -98,7 +107,8 @@
       _hidden$="[[hidden]]"
       class$="[[listClass(_displayedImages)]]">
     <template is="dom-repeat" items="[[_displayedAnswers]]">
-      <li on-click="handleClick"><span>[[item.data]]</span></li>
+      <li on-click="handleClick"><span>[[item.data]]</span>
+      <div class="tag">[[getTag(item.id)]]</div></li></li>
     </template>
     <template is="dom-repeat" items="[[_displayedImages]]">
       <li class="image" on-click="handleClick">
@@ -107,6 +117,7 @@
           preload
           fade
           sizing="cover"></iron-image>
+        <div class="tag">[[getTag(item.id)]]</div></li>
       </li>
     </template>
     </ul>
@@ -211,6 +222,14 @@
         if (!el) return
         el.removeEventListener('transitionend', this._debounceShow)
         el.addEventListener('transitionend', this._debounceShow)
+      }
+      getTag(id) {
+        return [
+          'Team player',
+          'Communicator',
+          'Go-getter',
+          'Innovator'
+        ][id]
       }
       handleClick (e) {
         this.answer = e.model.item.id
