@@ -108,9 +108,14 @@
         }, [0, 0, 0, 0, 0])
       }
       showResults () {
-        this.result = "YOU WIN!"
-        this.page = 'results'
-        console.log(this.responses, this.calcWeights(this.responses))
+        // clear question page
+        this.question = ''
+        this.answers = this.images = []
+        setTimeout(function () {
+          this.result = "YOU WIN!"
+          this.page = 'results'
+          console.log(this.responses, this.calcWeights(this.responses))
+        }.bind(this), 600)
       }
     }
 

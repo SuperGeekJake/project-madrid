@@ -9,10 +9,7 @@
         max-width: 400px;
         margin: 20px;
       }
-      li {
-        cursor: pointer;
-      }
-      ul.images {
+      #answers.images {
         padding: 0;
         list-style: none;
         display: flex;
@@ -21,25 +18,59 @@
         justify-content: space-around;
         width: 100%;
       }
-      ul.images li {
+      #answers li {
+        cursor: pointer;
+      }
+      #answers.images li {
         margin-bottom: 20px;
       }
-      ul.images li iron-image {
+      #answers.images li iron-image {
         width: 150px;
         height: 150px;
         background-color: lightgray;
       }
-      ul:not(.images) li {
+      #answers:not(.images) li {
         margin: 10px 0;
         font-size: 150%;
       }
+      #answers[_hidden] li {
+        transform: translate(0, 25px);
+        opacity: 0;
+      }
+      #question[_hidden] {
+        opacity: 0;
+      }
+      #question,
+      #answers li {
+        transition: all 0.5s cubic-bezier(0, 0, 0, 1);
+      }
+      #answers li:nth-of-type(2) {
+        transition-delay: 0.05s;
+      }
+      #answers li:nth-of-type(3) {
+        transition-delay: 0.1s;
+      }
+      #answers li:nth-of-type(4) {
+        transition-delay: 0.15s;
+      }
+      #answers li:nth-of-type(5) {
+        transition-delay: 0.2s;
+      }
+      #answers li:nth-of-type(6) {
+        transition-delay: 0.25s;
+      }
     </style>
-    <h2>[[question]]</h2>
-    <ul class$="[[listClass(images)]]">
-    <template is="dom-repeat" items="[[answers]]">
+    <h2
+      id="question"
+      _hidden$="[[hidden]]">[[_displayedQuestion]]</h2>
+    <ul
+      id="answers"
+      _hidden$="[[hidden]]"
+      class$="[[listClass(_displayedImages)]]">
+    <template is="dom-repeat" items="[[_displayedAnswers]]">
       <li on-click="handleClick">[[item]]</li>
     </template>
-    <template is="dom-repeat" items="[[images]]">
+    <template is="dom-repeat" items="[[_displayedImages]]">
       <li class="image" on-click="handleClick">
         <iron-image
           src="[[item]]"
@@ -57,26 +88,73 @@
       }
       static get properties() {
         return {
-          question: String,
+          question: {
+            type: String,
+            observer: '_debounceSwitch'
+          },
+          _displayedQuestion: String,
           answers: {
             type: Array,
-            observer: 'clearAnswer'
+            observer: '_debounceSwitch'
           },
+          _displayedAnswers: Array,
           images: {
             type: Array,
-            observer: 'clearAnswer'
+            observer: '_debounceSwitch'
           },
+          _displayedImages: Array,
           answer: {
             type: String,
             notify: true
+          },
+          hidden: {
+            type: Boolean,
+            value: true
           }
         }
+      }
+      ready () {
+        super.ready()
+        this._debounceShow = this._debounceShow.bind(this)
       }
       listClass (images) {
         return images ? 'images' : '';
       }
-      clearAnswer () {
+      _debounceShow() {
+        this._showDebouncer = Polymer.Debouncer.debounce(
+          this._showDebouncer, // initially undefined
+          Polymer.Async.timeOut.after(100),
+          this._show.bind(this))
+      }
+      _show () {
+        // if it is shown, it just transitionended to visible
+        if (!this.hidden) return
+        this._displayedQuestion = this.question
+        this._displayedAnswers = this.answers
+        this._displayedImages = this.images
+        // wait for the dom to be populated
+        setTimeout(function () {
+          this.hidden = false
+          this._bindEvents()
+        }.bind(this), 0)
+      }
+      _debounceSwitch () {
+        this._switchDebouncer = Polymer.Debouncer.debounce(
+          this._switchDebouncer, // initially undefined
+          Polymer.Async.timeOut.after(5),
+          this._switch.bind(this))
+      }
+      _switch () {
+        // the first switch. No previous state
+        if (!this._displayedQuestion) return this._debounceShow()
+        this.hidden = true
         this.answer = undefined
+      }
+      _bindEvents () {
+        const el = this.$.answers.querySelector('li:last-of-type')
+        if (!el) return
+        el.removeEventListener('transitionend', this._debounceShow)
+        el.addEventListener('transitionend', this._debounceShow)
       }
       handleClick (e) {
         this.answer = e.model.index
