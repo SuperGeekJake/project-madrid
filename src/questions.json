@@ -1,26 +1,65 @@
 [
   {
-    "prompt": "When conflict arises, my reaction is",
+    "prompt": "When a conflict arises, my reaction is...",
     "images": [
-      "https://media.giphy.com/media/COYGe9rZvfiaQ/giphy.gif",
-      "https://media.giphy.com/media/kwdv5q2ageAvu/giphy-downsized-large.gif",
-      "https://media.giphy.com/media/gl0mkIZOW6Nwc/giphy.gif",
-      "https://media.giphy.com/media/yr7n0u3qzO9nG/giphy.gif"
-    ],
-    "modifiers": [
-      [ 1, 0, 0, 0, 0, 0, 0 ],
-      [ 0, 1, 0, 0, 0, 0, 0 ],
-      [ 0, 0, 1, 0, 0, 0, 0 ],
-      [ 0, 0, 0, 1, 0, 0, 0 ]
+      "https://media.giphy.com/media/2aqjoBOuCq3K/giphy.gif",
+      "https://media.giphy.com/media/xT0xeOFWO8bCw68NgY/giphy.gif",
+      "https://media.giphy.com/media/100PgquHm9j3sQ/giphy.gif",
+      "https://media.giphy.com/media/3o7P4TvZ6lAFzevWdG/giphy.gif"
     ]
   },
   {
-    "prompt": "If your only food option was fresh maggots, you would",
+    "prompt": "My prefered way of getting to know someone is...",
     "answers": [
-      "eat them all and ask for seconds",
-      "convince yourself that it's finally time to try that water day everyone's been raving about",
-      "try at least one, maybe more if there's no gag reflex"
-    ],
-    "modifiers": [ [ 1, 0, 0, 0, 0, 0, 0 ], [ 0, 1, 0, 0, 0, 0, 0 ], [ 0, 0, 1, 0, 0, 0, 0 ] ]
+      "Set up an introductory meeting",
+      "Just step up to the person and start a conversation",
+      "Tequila shots in a sleazy bar",
+      "It’s not what we say or think that defines us, but what we do"
+    ]
+  },
+  {
+    "prompt": "In an impromptu karaoke situation...",
+    "images": [
+      "https://media.giphy.com/media/l3q2zNErhlCJh3UQM/giphy.gif",
+      "https://media.giphy.com/media/iAYupOdWXQy5a4nVGk/giphy-downsized-large.gif",
+      "https://media.giphy.com/media/11sBLVxNs7v6WA/giphy.gif",
+      "https://media.giphy.com/media/l0He0B1237tKb5fWM/giphy.gif"
+    ]
+  },
+  {
+    "prompt": "In a country where I don't speak the language...",
+    "answers": [
+      "I’ll make a new local friend",
+      "I’ll find a way with gestures and signs, how hard can it be?",
+      "Yass; I've been looking for a reason to start learning a new language!",
+      "Google Translate FTW!"
+    ]
+  },
+  {
+    "prompt": "When I get a new tasks...",
+    "images": [
+      "https://media.giphy.com/media/d382uVfLgvEcg/giphy-downsized-large.gif",
+      "https://media.giphy.com/media/nuuS1IlKqd2dq/giphy.gif",
+      "https://media.giphy.com/media/8PnbQkG5uCl0s/giphy.gif",
+      "https://media.giphy.com/media/l0HlAgJTVaAPHEGdy/giphy.gif"
+    ]
+  },
+  {
+    "prompt": "When I work with people from other countries...",
+    "images": [
+      "https://media.giphy.com/media/glBV5J91969MY/giphy.gif",
+      "https://media.giphy.com/media/dzaUX7CAG0Ihi/giphy.gif",
+      "https://media.giphy.com/media/CdY6WueirK8Te/giphy.gif",
+      "https://media.giphy.com/media/14urMYvFxIKEms/giphy.gif"
+    ]
+  },
+  {
+    "prompt": "My ideal working place is...",
+    "images": [
+      "https://s3-eu-west-1.amazonaws.com/spaciousapp/blog_static/DSC06481edited.jpg",
+      "https://cdn.theatlantic.com/assets/media/img/mt/2016/03/23_select/lead_960_540.jpg?1522795836",
+      "https://amp.thisisinsider.com/images/51768f906bb3f7c27c000000-750-501.jpg",
+      "https://i.pinimg.com/originals/d7/f7/fe/d7f7fe50f0670ee7734b617b7b58c078.jpg"
+    ]
   }
 ]
