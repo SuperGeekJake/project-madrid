@@ -90,17 +90,29 @@
       nextQuestion () {
         if (this.currentQuestion === undefined) this.currentQuestion = -1
         this.currentQuestion++
-        let colorN = this.currentQuestion + 1
-        if (colorN > 5) colorN = 1
-        this.style.backgroundColor = `var(--color-${colorN})`
         const questionInfo = this.questions[this.currentQuestion]
         if (!questionInfo) return this.showResults()
         this.question = questionInfo.prompt
         this.answers = questionInfo.answers
         this.images = questionInfo.images
+        if (this.answers && this.answers.length) { // text answers
+          this.style.backgroundColor = '#fff'
+          setTimeout(function() {
+            this.style.color = '#000'
+          }.bind(this), 500)
+        } else {
+          this.switchBGColor()
+          setTimeout(function () {
+            this.style.color = ''
+          }.bind(this), 500)
+        }
+      }
+      switchBGColor () {
+        if (++this.colorN > 5) this.colorN = 1
+        this.style.backgroundColor = `var(--color-${this.colorN})`
       }
       calcWeights (responses) {
-        const _this = this;
+        const _this = this
         return responses.reduce(function (result, response, qIdx) {
           return result.map(function (r, rIdx) {
             return r + _this.questions[qIdx].modifiers[response][rIdx]
@@ -111,14 +123,20 @@
         // clear question page
         this.question = ''
         this.answers = this.images = []
+        this.switchBGColor()
         setTimeout(function () {
+          this.style.color = ''
           this.result = "YOU WIN!"
           this.page = 'results'
           console.log(this.responses, this.calcWeights(this.responses))
-        }.bind(this), 600)
+        }.bind(this), 800)
+      }
+      ready () {
+        super.ready()
+        this.colorN = 0
       }
     }
 
-    window.customElements.define(PMApp.is, PMApp);
+    window.customElements.define(PMApp.is, PMApp)
   </script>
 </dom-module>
