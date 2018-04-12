@@ -60,6 +60,13 @@
   </template>
 
   <script>
+    const resultValues = [
+      1.00,
+      1.01,
+      1.02,
+      1.03
+    ]
+
     class PMApp extends Polymer.Element {
       static get is() { return 'pm-app' }
       static get properties() {
@@ -111,12 +118,16 @@
         if (++this.colorN > 5) this.colorN = 1
         this.style.backgroundColor = `var(--color-${this.colorN})`
       }
-      calcWeights (responses) {
-        const _this = this
+      calcResult () {
+        const responses = this.responses
         return responses.reduce(function (result, response) {
-          result[response]++
+          result[response] += resultValues[response]
           return result
         }, [0, 0, 0, 0])
+          .reduce(function (result, score, index, scores) {
+            if (scores[index] > scores[result]) result = index
+            return result
+          }, 0)
       }
       showResults () {
         // clear question page
@@ -124,9 +135,8 @@
         this.answers = this.images = []
         this.switchBGColor()
         setTimeout(function () {
-          const weights = this.calcWeights(this.responses)
           this.style.color = ''
-          this.result = `SCORES: [TP: ${weights[0]}; Cmm: ${weights[1]}; GG: ${weights[2]}; Inn: ${weights[3]}]`
+          this.result = this.calcResult()
           this.page = 'results'
         }.bind(this), 800)
       }
