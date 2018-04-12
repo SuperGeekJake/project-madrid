@@ -10,6 +10,11 @@
     <h1>[[result]]</h1>
     <h2>Toggl is hiring superheroes like you.</h2>
     <h2>Check out the open positions!</h2>
+
+    <a on-click="shareOnFacebook" href="#"> <!-- TODO make a sexy buttton -->
+      share on facebook
+    </a>
+
   </template>
   <script>
     class PMResults extends Polymer.Element {
@@ -21,8 +26,36 @@
           result: String
         }
       }
+      shareOnFacebook(){
+        FB.ui({
+            method: 'share',
+            display: 'popup',
+            href: 'https://the-final-url.com/', // TODO change the shared url (that is what will actually be on fb) 
+          }, function(response){ /* do nothing on response ??? */ });
+        }
     }
-
     window.customElements.define(PMResults.is, PMResults);
   </script>
+
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId            : 'your-app-id', // TODO change the id
+        autoLogAppEvents : true,
+        xfbml            : true,
+        version          : 'v2.12'
+      });
+    };
+
+    // default facebook init code...
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "https://connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+
 </dom-module>
