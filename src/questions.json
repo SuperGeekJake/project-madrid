@@ -56,10 +56,10 @@
   {
     "prompt": "My ideal working place is...",
     "images": [
-      "src/img/gif/place1.gif",
-      "src/img/gif/place2.gif",
-      "src/img/gif/place3.gif",
-      "src/img/gif/place4.gif"
+      "src/img/gif/place1.jpg",
+      "src/img/gif/place2.jpg",
+      "src/img/gif/place3.jpg",
+      "src/img/gif/place4.jpg"
     ]
   }
 ]
