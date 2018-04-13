@@ -124,6 +124,12 @@
       'goGetter': 'go-getter',
       'innovator': 'innovator'
     }
+    const resultColors = {
+      'teamPlayer': 1,
+      'communicator': 3,
+      'goGetter': 7,
+      'innovator': 4
+    }
     const resultTitleMessages = {
       'teamPlayer': 'Team Player',
       'communicator': 'Communicator',
@@ -168,21 +174,22 @@
       getFBLink (index) {
         const result = results[index]
         return `https://www.facebook.com/sharer/sharer.php?u=https%3A//project-madrid.firebaseapp.com/${
-          resultAssets[result]
-        }/`
+          resultAssets[result]}/`
       }
       getTwitterLink (index) {
         const result = results[index]
-        return `https://twitter.com/home?status=https%3A//project-madrid.firebaseapp.com/${
-          resultAssets[result]
-        }/`
+        return `https://twitter.com/home?status=My%20remote%20working%20superpower%20is%20${
+            resultTitleMessages[result].replace(' ', '%20')
+          },%20what's%20yours?https%3A//project-madrid.firebaseapp.com/${
+            resultAssets[result]}/`
       }
       changeResult (index) {
         this.changeColor(index)
         this.animate()
       }
       changeColor (index) {
-        const color = `var(--color-${index + 2})`
+        const result = results[index]
+        const color = `var(--color-${resultColors[result]})`
         this.$.superheroTitle.style.color = color
         this.$.container.style.backgroundColor = color
       }
