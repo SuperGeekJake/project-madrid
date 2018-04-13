@@ -13,10 +13,10 @@
     }
   ],
   "extraDependencies": [
-    "team-player/index.html",
-    "communicator/index.html",
-    "go-getter/index.html",
-    "innovator/index.html",
+    "team-player/**/*",
+    "communicator/**/*",
+    "go-getter/**/*",
+    "innovator/**/*",
     "favicon.ico",
     "fb-quiz.png",
     "android-icon-*",
