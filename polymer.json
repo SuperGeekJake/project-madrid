@@ -1,7 +1,15 @@
 {
   "lint": {
-    "rules": [
-      "polymer-2"
-    ]
-  }
+    "rules": [ "polymer-2" ]
+  },
+  "builds": [
+    {
+      "name": "es5",
+      "js": { "minify": true, "compile": true },
+      "css": { "minify": true },
+      "html": { "minify": true },
+      "addServiceWorker": false,
+      "insertPrefetchLinks": false
+    }
+  ]
 }
