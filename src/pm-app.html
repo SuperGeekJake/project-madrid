@@ -85,6 +85,7 @@
         }
       }
       beginQuiz () {
+        if (!this.questions || !this.questions.lenght) return
         this.nextQuestion()
         this.page = 'question'
       }
