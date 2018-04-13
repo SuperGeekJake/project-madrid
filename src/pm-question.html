@@ -219,6 +219,7 @@
       _switch () {
         // the first switch. No previous state
         if (!this._displayedQuestion) return this._debounceShow()
+        this.disableClick()
         this.hidden = true
         this.answer = undefined
       }
@@ -246,7 +247,7 @@
         this._clickEnabled = false
         // make sure we HAVE clicks in case something goes wrong
         this._enableTimeout = setTimeout(function () {
-          this._clickEnabled = true
+          this.enableClick()
         }.bind(this), 1500)
       }
       enableClick() {
