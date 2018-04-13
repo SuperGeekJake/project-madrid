@@ -11,5 +11,11 @@
       "addServiceWorker": false,
       "insertPrefetchLinks": false
     }
+  ],
+  "extraDependencies": [
+    "team-player/index.html",
+    "communicator/index.html",
+    "go-getter/index.html",
+    "innovator/index.html"
   ]
 }

@@ -27,6 +27,8 @@
         font-family: GTWalsheim,arial,sans-serif;
         background-color: var(--color-5);
         color: #fff;
+      }
+      :host(.loaded) {
         transition: background-color 1s cubic-bezier(0, 0, 0, 1);
       }
     </style>
@@ -144,6 +146,7 @@
       ready () {
         super.ready()
         this.colorN = 0
+        setTimeout(() => this.classList.add('loaded'), 100)
       }
     }
 
