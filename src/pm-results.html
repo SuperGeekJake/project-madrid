@@ -5,13 +5,113 @@
   <template>
     <style>
       :host {
-        display: block
+        display: block;
+        opacity: 0;
+        transform: scale(0.9, 0.9);
+        transition: all 0.5s cubic-bezier(0, 0, 0, 1);
+      }
+      .container {
+        position: relative;
+        margin: 0 20px;
+        width: 1000px;
+        height: 510px;
+        border-radius: 5px;
+        box-shadow: 0 1px 2px 0 rgba(94, 91, 91, 0.16);
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+      }
+      .hero-image {
+        width: 500px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      .card {
+        width: 292px;
+        height: 423px;
+        border-radius: 5px;
+        background-color: #ffffff;
+        color: #282a2d;
+        box-shadow: 0 1px 2px 0 rgba(94, 91, 91, 0.16);
+        padding: 34px 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        transition: all 0.5s cubic-bezier(0, 0, 0, 1) 0.3s;
+        opacity: 0;
+        transform: translate(0, -50px);
+      }
+      .card.shown {
+        opacity: 1;
+        transform: translate(0, -23px);
+      }
+      .subtitle {
+        font-size: 12px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+      }
+      .you-are {
+        line-height: 2.92;
+      }
+      .superhero-title {
+        font-size: 28px;
+        line-height: 1.25;
+        margin-bottom: 20px;
+      }
+      .superhero-description {
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 1.5;
+        text-align: center;
+      }
+      .squiggly {
+        height: 6px;
+        align-self: stretch;
+        background-image: url('./img/squiggly.svg');
+        margin-bottom: 20px;
+      }
+      pm-button {
+        align-self: stretch;
+      }
+      .social {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
+      .social .social-btn {
+        margin: 0 10px;
+        cursor: pointer;
       }
     </style>
-    <h1>You are true [[displayResultTitle(result)]]</h1>
-    <h2>[[displayResultContent(result)]]</h2>
-    <p>Toggl is hiring superheroes like you!</p>
-    <pm-button>See Open Positions</pm-button>
+    <div id="container" class="container">
+      <div class="hero-image">
+        <img src="[[getImgSrc(result)]]" srcset="[[getImgSrcSet(result)]]">
+      </div>
+      <div id="card" class="card">
+        <div class="subtitle you-are">You are a true</div>
+        <div id="superheroTitle" class="superhero-title">[[displayResultTitle(result)]]</div>
+        <div class="superhero-description">[[displayResultContent(result)]]</div>
+        <div class="squiggly"></div>
+        <div class="subtitle">Toggl is hiring superheroes like you!</div>
+        <pm-button on-click="openJobs">See Open Positions</pm-button>
+        <div class="social">
+          <img
+            src="./src/img/facebook.svg"
+            alt="Share on Facebook"
+            class="social-btn"
+            on-click="shareFB">
+          <img
+            src="./src/img/twitter.svg"
+            alt="Share on Twitter"
+            class="social-btn"
+            on-click="shareTwitter">
+        </div>
+      </div>
+    </div>
   </template>
   <script>
     const results = [
@@ -20,6 +120,12 @@
       'goGetter',
       'innovator'
     ]
+    const resultAssets = {
+      'teamPlayer': 'team-player',
+      'communicator': 'communicator',
+      'goGetter': 'go-getter',
+      'innovator': 'innovator'
+    }
     const resultTitleMessages = {
       'teamPlayer': 'Team Player',
       'communicator': 'Communicator',
@@ -38,7 +144,10 @@
       }
       static get properties () {
         return {
-          result: Number
+          result: {
+            type: Number,
+            observer: 'changeResult'
+          }
         }
       }
       displayResultTitle (index) {
@@ -48,6 +157,34 @@
       displayResultContent (index) {
         const result = results[index]
         return resultContentMessages[result]
+      }
+      getImgSrc (index) {
+        const result = results[index]
+        return `./src/img/${resultAssets[result]}.png`
+      }
+      getImgSrcSet (index) {
+        const result = results[index]
+        return `./src/img/${resultAssets[result]}@2x.png 2x,
+          ./src/img/${resultAssets[result]}@3x.png 3x`
+      }
+      changeResult (index) {
+        this.changeColor(index)
+        this.animate()
+      }
+      changeColor (index) {
+        const color = `var(--color-${index + 2})`
+        this.$.superheroTitle.style.color = color
+        this.$.container.style.backgroundColor = color
+      }
+      animate() {
+        setTimeout(function () {
+          this.style.transform = 'scale(1, 1)'
+          this.style.opacity = 1
+          this.$.card.classList.add('shown')
+        }.bind(this), 100);
+      }
+      openJobs () {
+        window.open('https://toggl.com/jobs', '_blank')
       }
     }
     window.customElements.define(PMResults.is, PMResults);
