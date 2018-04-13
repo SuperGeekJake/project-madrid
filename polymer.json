@@ -17,6 +17,11 @@
     "communicator/index.html",
     "go-getter/index.html",
     "innovator/index.html",
-    "favicon.ico"
+    "favicon.ico",
+    "fb-quiz.png",
+    "android-icon-*",
+    "apple-icon-*",
+    "ms-icon-*",
+    "favicon-*"
   ]
 }
