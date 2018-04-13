@@ -12,10 +12,6 @@
     <h2>[[displayResultContent(result)]]</h2>
     <p>Toggl is hiring superheroes like you!</p>
     <pm-button>See Open Positions</pm-button>
-
-    <a on-click="shareOnFacebook" href="#"> <!-- TODO make a sexy buttton -->
-      share on facebook
-    </a>
   </template>
   <script>
     const results = [
@@ -45,13 +41,6 @@
           result: Number
         }
       }
-      shareOnFacebook () {
-        FB.ui({
-          method: 'share',
-          display: 'popup',
-          href: 'https://the-final-url.com/', // TODO change the shared url (that is what will actually be on fb)
-        }, function(response){ /* do nothing on response ??? */ });
-      }
       displayResultTitle (index) {
         const result = results[index]
         return resultTitleMessages[result]
@@ -63,26 +52,4 @@
     }
     window.customElements.define(PMResults.is, PMResults);
   </script>
-
-  <script>
-    window.fbAsyncInit = function() {
-      FB.init({
-        appId            : 'your-app-id', // TODO change the id
-        autoLogAppEvents : true,
-        xfbml            : true,
-        version          : 'v2.12'
-      });
-    };
-
-    // default facebook init code...
-    (function(d, s, id){
-       var js, fjs = d.getElementsByTagName(s)[0];
-       if (d.getElementById(id)) {return;}
-       js = d.createElement(s); js.id = id;
-       js.src = "https://connect.facebook.net/en_US/sdk.js";
-       fjs.parentNode.insertBefore(js, fjs);
-     }(document, 'script', 'facebook-jssdk'));
-  </script>
-
-
 </dom-module>
