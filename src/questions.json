@@ -2,10 +2,10 @@
   {
     "prompt": "When a conflict arises, my reaction is...",
     "images": [
-      "https://media.giphy.com/media/VRn2kwMjJMx6o/giphy.gif",
-      "https://media.giphy.com/media/xT0xeOFWO8bCw68NgY/giphy.gif",
-      "https://media.giphy.com/media/3ohhwto87UNnoy3kic/giphy.gif",
-      "https://media.giphy.com/media/3o7P4TvZ6lAFzevWdG/giphy.gif"
+      "src/img/gif/conflict1.gif",
+      "src/img/gif/conflict2.gif",
+      "src/img/gif/conflict3.gif",
+      "src/img/gif/conflict4.gif"
     ]
   },
   {
