@@ -93,17 +93,19 @@
       gotQuestions (e) {
         this.responses = []
         this.questions = e.detail.response
-        this.preloadImages()
+        this.preloadNextImages()
       }
-      preloadImages () {
-        const imgUrls = this.questions.reduce((arr, {images}) => [
-          ...arr,
-          ...(images || [])
-        ], [])
-        let  images = []
+      preloadImages (imgUrls) {
+        let images = []
         for (let i = 0; i < imgUrls.length; i++) {
           images[i] = new Image()
           images[i].src = imgUrls[i]
+        }
+      }
+      preloadNextImages () {
+        const { images } = (this.questions[(this.currentQuestion || -1) + 1] || {})
+        if (images) {
+          this.preloadImages(images)
         }
       }
       handleAnswer (e) {
@@ -119,6 +121,7 @@
         this.question = questionInfo.prompt
         this.answers = questionInfo.answers
         this.images = questionInfo.images
+        this.preloadNextImages()
         if (this.answers && this.answers.length) { // text answers
           this.style.backgroundColor = '#fff'
           setTimeout(function() {
