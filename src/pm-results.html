@@ -99,16 +99,14 @@
         <div class="subtitle">Toggl is hiring superheroes like you!</div>
         <pm-button on-click="openJobs">See Open Positions</pm-button>
         <div class="social">
-          <img
+          <a href="[[getFBLink(result)]]" target="_blank"><img
             src="./src/img/facebook.svg"
             alt="Share on Facebook"
-            class="social-btn"
-            on-click="shareFB">
-          <img
+            class="social-btn"></a>
+          <a href="[[getTwitterLink(result)]]" target="_blank"><img
             src="./src/img/twitter.svg"
             alt="Share on Twitter"
-            class="social-btn"
-            on-click="shareTwitter">
+            class="social-btn"></a>
         </div>
       </div>
     </div>
@@ -166,6 +164,18 @@
         const result = results[index]
         return `./src/img/${resultAssets[result]}@2x.png 2x,
           ./src/img/${resultAssets[result]}@3x.png 3x`
+      }
+      getFBLink (index) {
+        const result = results[index]
+        return `https://www.facebook.com/sharer/sharer.php?u=https%3A//project-madrid.firebaseapp.com/${
+          resultAssets[result]
+        }/`
+      }
+      getTwitterLink (index) {
+        const result = results[index]
+        return `https://twitter.com/home?status=https%3A//project-madrid.firebaseapp.com/${
+          resultAssets[result]
+        }/`
       }
       changeResult (index) {
         this.changeColor(index)
