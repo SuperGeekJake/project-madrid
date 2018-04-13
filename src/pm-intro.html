@@ -60,36 +60,43 @@
         width: 38px;
         height: 46px;
         background: url('img/ghost.png') no-repeat;
+        opacity: 0.2;
         animation: 3s infinite alternate fadeBlinking;
       }
       .ghost:nth-child(2) {
         top: 6%;
         left: 27%;
         transform: rotate(15deg);
+        animation-delay: 0s;
       }
       .ghost:nth-child(3) {
         top: 26%;
         left: 20%;
+        animation-delay: 1.5s;
       }
       .ghost:nth-child(4) {
         top: 40%;
         left: 27%;
         transform: scaleX(-1) rotate(2deg);
+        animation-delay: 1s;
       }
       .ghost:nth-child(5) {
         top: 9%;
         right: 29%;
         transform: rotate(-35deg);
+        animation-delay: 0.5s;
       }
       .ghost:nth-child(6) {
         top: 21%;
         right: 20%;
         transform: scaleX(-1) rotate(-8deg);
+        animation-delay: 3s;
       }
       .ghost:nth-child(7) {
         top: 40%;
         right: 25%;
         transform: scaleX(-1) rotate(-44deg);
+        animation-delay: 2s;
       }
     </style>
     <div class="ghost"></div>
