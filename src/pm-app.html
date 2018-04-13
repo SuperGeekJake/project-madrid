@@ -91,6 +91,18 @@
       gotQuestions (e) {
         this.responses = []
         this.questions = e.detail.response
+        this.preloadImages()
+      }
+      preloadImages () {
+        const imgUrls = this.questions.reduce((arr, {images}) => [
+          ...arr,
+          ...(images || [])
+        ], [])
+        let  images = []
+        for (let i = 0; i < imgUrls.length; i++) {
+          images[i] = new Image()
+          images[i].src = imgUrls[i]
+        }
       }
       handleAnswer (e) {
         if (e.detail.value === undefined) return
